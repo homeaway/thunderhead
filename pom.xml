@@ -13,7 +13,7 @@
   <name>Thunderhead</name>
 
   <description>
-    Thunderhead - An AWS Cloudsearch client for updating and querying
+    Thunderhead - An AWS Cloudsearch client for uploading documents and querying
     your search domains written in Java
   </description>
 
