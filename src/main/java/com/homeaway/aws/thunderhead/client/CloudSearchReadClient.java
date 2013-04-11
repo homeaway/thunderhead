@@ -92,7 +92,7 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
         ClientResponse clientResponse = null;
         SearchResponse searchResponse = null; 
         
-        /* Request xml results from AWS cloudsearch for JAXB conversion */
+        /* Force request xml results from AWS cloudsearch for JAXB conversion */
         MultivaluedMap<String, String> myQueryParams = new MultivaluedMapImpl(queryParams);
         myQueryParams.remove(CloudSearchQueryParam.RESULTS_TYPE);
         myQueryParams.add(CloudSearchQueryParam.RESULTS_TYPE, "xml");
@@ -100,15 +100,8 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
         LOGGER.debug("Querying to {} with query params: {}", this.queryWebResource.getURI(), myQueryParams);
         try {
             /* Don't like doing this but apparently jersey has problems with return-fields being in multivalued map */
-            List<String> list = myQueryParams.remove(CloudSearchQueryParam.RETURN_FIELDS);
-            if (list != null) {
-                String[] returnFields = list.toArray(new String[list.size()]);
-                // If i don't do the following line the only return field we get is the last one
-                myQueryParams.add(CloudSearchQueryParam.RETURN_FIELDS, StringUtils.join(returnFields, ","));
-            }
-            System.out.println(this.queryWebResource);
-            clientResponse = this.queryWebResource//.uri(UriBuilder.fromUri(this.queryWebResource.getURI()).build())
-                                                  .path(CLOUDSEARCH_VERSION)
+            myQueryParams = patchReturnFields(myQueryParams);
+            clientResponse = this.queryWebResource.path(CLOUDSEARCH_VERSION)
                                                   .path(CloudSearchPath.SEARCH)
                                                   .queryParams(myQueryParams)
                                                   .get(ClientResponse.class);
@@ -144,5 +137,24 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
             }
         }
         return ret;
+    }
+
+    /**
+     * Stupid patch because the return-fields are not being passed to the jersey WebResource properly. Most likely my fault.
+     *
+     * @param queryParams the query params that need return-fields patched
+     * @return the patched query params
+     */
+    protected MultivaluedMap<String, String> patchReturnFields(MultivaluedMap<String, String> queryParams) {
+        // This method is only protected for testing purposes
+        MultivaluedMap<String, String> myQueryParams = new MultivaluedMapImpl(queryParams);
+        List<String> list = myQueryParams.remove(CloudSearchQueryParam.RETURN_FIELDS);
+        if (list != null) {
+            String[] returnFields = list.toArray(new String[list.size()]);
+            // If the following line is not executed then the only return field we get is the last one
+            myQueryParams.add(CloudSearchQueryParam.RETURN_FIELDS, StringUtils.join(returnFields, ","));
+        }
+
+        return myQueryParams;
     }
 }

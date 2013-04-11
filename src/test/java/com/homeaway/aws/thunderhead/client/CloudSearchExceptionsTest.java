@@ -16,7 +16,6 @@
 
 package com.homeaway.aws.thunderhead.client;
 
-import com.homeaway.aws.thunderhead.client.CloudSearchReadWriteClient;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchBadRequestException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchBandwidthExceededException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException;
@@ -42,7 +41,7 @@ import static org.mockito.Mockito.when;
  * @author jmonette
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CloudSearchReadWriteClientTest {
+public class CloudSearchExceptionsTest {
     
     private CloudSearchReadWriteClient cloudSearchReadWriteClient = new CloudSearchReadWriteClient();
     @Mock private ClientResponse clientResponse;
