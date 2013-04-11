@@ -36,6 +36,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * An abstract client that the other Cloudsearch clients inherit from
+ *
  * @author jmonette
  */
 public abstract class AbstractCloudSearchClient {

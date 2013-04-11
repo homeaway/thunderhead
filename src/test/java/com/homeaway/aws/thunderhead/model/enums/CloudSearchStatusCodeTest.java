@@ -16,7 +16,6 @@
 
 package com.homeaway.aws.thunderhead.model.enums;
 
-import com.homeaway.aws.thunderhead.model.enums.CloudSearchStatusCode;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -28,7 +27,7 @@ import static org.junit.Assert.assertThat;
 public class CloudSearchStatusCodeTest {
 
     @Test
-    public void testFromNameMissingAWSRegion() {
+    public void testFromStatusUnknown() {
         assertThat(CloudSearchStatusCode.fromStatus(30), is(CloudSearchStatusCode.UNKNOWN));
     }
 }

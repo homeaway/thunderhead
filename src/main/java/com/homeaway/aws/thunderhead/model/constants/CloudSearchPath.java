@@ -17,10 +17,11 @@
 package com.homeaway.aws.thunderhead.model.constants;
 
 /**
+ * This class defines constants for paths in cloudsearch
+ *
  * @author jmonette
  */
 public interface CloudSearchPath {
-    
     public static final String BATCH = "batch";
     public static final String DOCUMENTS = "documents";
     public static final String SEARCH = "search";

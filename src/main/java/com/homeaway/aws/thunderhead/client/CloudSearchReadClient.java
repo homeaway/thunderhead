@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is a client for uploading SDF documents to the cloudsearch domain and querying the cloudsearch domain
+ * This class is a client for querying the cloudsearch domain
  * 
  * @author jmonette
  */

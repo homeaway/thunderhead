@@ -17,6 +17,7 @@
 package com.homeaway.aws.thunderhead.model.constants;
 
 /**
+ * This class defines constants for the query params used in cloudsearch
  * @author jmonette
  */
 public interface CloudSearchQueryParam {

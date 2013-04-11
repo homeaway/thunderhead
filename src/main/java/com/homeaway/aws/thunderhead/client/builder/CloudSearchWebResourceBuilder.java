@@ -24,6 +24,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
+ * A Web Resource builder has been provided to help build out a web resource for the cloudsearch client.
+ *
  * @author jmonette
  */
 public class CloudSearchWebResourceBuilder {
@@ -61,6 +63,11 @@ public class CloudSearchWebResourceBuilder {
         return this;
     }
 
+    /**
+     * Build and return a WebResource
+     * @return the WebResource that was built from this builder
+     * @throws URISyntaxException if the host provided does not match a URI scheme
+     */
     public WebResource build() throws URISyntaxException {
 
         if(StringUtils.isEmpty(this.host)) {

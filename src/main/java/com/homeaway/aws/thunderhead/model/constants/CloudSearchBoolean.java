@@ -17,6 +17,8 @@
 package com.homeaway.aws.thunderhead.model.constants;
 
 /**
+ * This class defines constants for cloudsearch queries
+ *
  * @author jmonette
  */
 public interface CloudSearchBoolean {

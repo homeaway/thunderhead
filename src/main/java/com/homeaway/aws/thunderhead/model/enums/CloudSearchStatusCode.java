@@ -19,6 +19,8 @@ package com.homeaway.aws.thunderhead.model.enums;
 import com.google.common.base.Objects;
 
 /**
+ * Possible status codes used in cloudsearch
+ *
  * @author jmonette
  */
 public enum CloudSearchStatusCode {

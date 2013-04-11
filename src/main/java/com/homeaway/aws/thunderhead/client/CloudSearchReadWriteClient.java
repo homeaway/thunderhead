@@ -29,6 +29,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
 /**
+ * This class is a client for uploading SDF documents to the cloudsearch domain and querying the cloudsearch domain
+ *
  * @author jmonette
  */
 public class CloudSearchReadWriteClient extends CloudSearchReadClient {
