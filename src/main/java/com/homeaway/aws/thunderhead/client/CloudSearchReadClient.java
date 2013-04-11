@@ -16,13 +16,13 @@
 
 package com.homeaway.aws.thunderhead.client;
 
+import com.homeaway.aws.thunderhead.model.constants.CloudSearchPath;
 import com.homeaway.aws.thunderhead.model.constants.CloudSearchQueryParam;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRuntimeException;
 import com.homeaway.aws.thunderhead.model.search.SearchHit;
 import com.homeaway.aws.thunderhead.model.search.SearchHits;
 import com.homeaway.aws.thunderhead.model.search.SearchResponse;
-import com.homeaway.aws.thunderhead.model.constants.CloudSearchPath;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
@@ -30,7 +30,6 @@ import org.apache.commons.lang.StringUtils;
 import org.perf4j.aop.Profiled;
 
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.UriBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,10 +101,13 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
         try {
             /* Don't like doing this but apparently jersey has problems with return-fields being in multivalued map */
             List<String> list = myQueryParams.remove(CloudSearchQueryParam.RETURN_FIELDS);
-            String[] returnFields = list.toArray(new String[list.size()]);
-            // If i don't do the following line the only return field we get is the last one
-            myQueryParams.add(CloudSearchQueryParam.RETURN_FIELDS, StringUtils.join(returnFields, ","));
-            clientResponse = this.queryWebResource.uri(UriBuilder.fromUri(this.queryWebResource.getURI()).build())
+            if (list != null) {
+                String[] returnFields = list.toArray(new String[list.size()]);
+                // If i don't do the following line the only return field we get is the last one
+                myQueryParams.add(CloudSearchQueryParam.RETURN_FIELDS, StringUtils.join(returnFields, ","));
+            }
+            System.out.println(this.queryWebResource);
+            clientResponse = this.queryWebResource//.uri(UriBuilder.fromUri(this.queryWebResource.getURI()).build())
                                                   .path(CLOUDSEARCH_VERSION)
                                                   .path(CloudSearchPath.SEARCH)
                                                   .queryParams(myQueryParams)

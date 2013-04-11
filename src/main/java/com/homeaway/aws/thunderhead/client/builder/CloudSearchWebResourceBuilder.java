@@ -67,7 +67,7 @@ public class CloudSearchWebResourceBuilder {
             throw new IllegalStateException("host must not be null or empty");
         }
 
-        String scheme = (this.secure ? "https" : "http");
+        String scheme = (this.secure ? "https://" : "http://");
         URI uri = new URI(scheme + this.host);
         Client client = Client.create();
         client.setConnectTimeout(this.connectTimeout);
