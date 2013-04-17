@@ -14,19 +14,35 @@
  * limitations under the License.
  */
 
-package com.homeaway.aws.thunderhead.model.constants;
+package com.homeaway.aws.thunderhead.model.enums;
+
+import com.google.common.base.Objects;
 
 /**
- * This class defines constants for the query params used in cloudsearch
+ * This class defines constants for paths in cloudsearch
+ *
  * @author jmonette
  */
-public interface CloudSearchQueryParam {
-    public static final String BQ = "bq";
-    public static final String FACET = "facet";
-    public static final String Q = "q";
-    public static final String RANK = "rank";
-    public static final String RESULTS_TYPE = "results-type";
-    public static final String RETURN_FIELDS = "return-fields";
-    public static final String SIZE = "size";
-    public static final String START = "start";
+public enum CloudSearchPath {
+    BATCH("batch"),
+    DOCUMENTS("documents"),
+    SEARCH("search");
+
+    private String path;
+    private CloudSearchPath(String path) {
+        this.path = path;
+    }
+
+    public String getName() {
+        return this.path;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .add("path", this.path)
+                .toString();
+
+    }
+
 }

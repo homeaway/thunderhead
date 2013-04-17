@@ -16,8 +16,8 @@
 
 package com.homeaway.aws.thunderhead.client;
 
-import com.homeaway.aws.thunderhead.model.constants.CloudSearchPath;
-import com.homeaway.aws.thunderhead.model.constants.CloudSearchQueryParam;
+import com.homeaway.aws.thunderhead.model.enums.CloudSearchPath;
+import com.homeaway.aws.thunderhead.model.enums.CloudSearchQueryParam;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRuntimeException;
 import com.homeaway.aws.thunderhead.model.search.SearchHit;
@@ -94,15 +94,15 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
         
         /* Force request xml results from AWS cloudsearch for JAXB conversion */
         MultivaluedMap<String, String> myQueryParams = new MultivaluedMapImpl(queryParams);
-        myQueryParams.remove(CloudSearchQueryParam.RESULTS_TYPE);
-        myQueryParams.add(CloudSearchQueryParam.RESULTS_TYPE, "xml");
+        myQueryParams.remove(CloudSearchQueryParam.RESULTS_TYPE.getName());
+        myQueryParams.add(CloudSearchQueryParam.RESULTS_TYPE.getName(), "xml");
         
         LOGGER.debug("Querying to {} with query params: {}", this.queryWebResource.getURI(), myQueryParams);
         try {
             /* Don't like doing this but apparently jersey has problems with return-fields being in multivalued map */
             myQueryParams = patchReturnFields(myQueryParams);
             clientResponse = this.queryWebResource.path(CLOUDSEARCH_VERSION)
-                                                  .path(CloudSearchPath.SEARCH)
+                                                  .path(CloudSearchPath.SEARCH.getName())
                                                   .queryParams(myQueryParams)
                                                   .get(ClientResponse.class);
 
@@ -148,11 +148,11 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
     protected MultivaluedMap<String, String> patchReturnFields(MultivaluedMap<String, String> queryParams) {
         // This method is only protected for testing purposes
         MultivaluedMap<String, String> myQueryParams = new MultivaluedMapImpl(queryParams);
-        List<String> list = myQueryParams.remove(CloudSearchQueryParam.RETURN_FIELDS);
+        List<String> list = myQueryParams.remove(CloudSearchQueryParam.RETURN_FIELDS.getName());
         if (list != null) {
             String[] returnFields = list.toArray(new String[list.size()]);
             // If the following line is not executed then the only return field we get is the last one
-            myQueryParams.add(CloudSearchQueryParam.RETURN_FIELDS, StringUtils.join(returnFields, ","));
+            myQueryParams.add(CloudSearchQueryParam.RETURN_FIELDS.getName(), StringUtils.join(returnFields, ","));
         }
 
         return myQueryParams;

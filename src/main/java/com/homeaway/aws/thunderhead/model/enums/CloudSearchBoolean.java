@@ -14,15 +14,34 @@
  * limitations under the License.
  */
 
-package com.homeaway.aws.thunderhead.model.constants;
+package com.homeaway.aws.thunderhead.model.enums;
+
+import com.google.common.base.Objects;
 
 /**
- * This class defines constants for paths in cloudsearch
+ * This class defines constants for cloudsearch queries
  *
  * @author jmonette
  */
-public interface CloudSearchPath {
-    public static final String BATCH = "batch";
-    public static final String DOCUMENTS = "documents";
-    public static final String SEARCH = "search";
+public enum CloudSearchBoolean {
+    AND("and"),
+    NOT("not"),
+    OR("or");
+
+    private String booleanOperator;
+    private CloudSearchBoolean(String booleanOperator) {
+        this.booleanOperator = booleanOperator;
+    }
+
+    public String getName() {
+        return this.booleanOperator;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .add("booleanOperator", this.booleanOperator)
+                .toString();
+
+    }
 }

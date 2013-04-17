@@ -16,11 +16,11 @@
 
 package com.homeaway.aws.thunderhead.client;
 
+import com.homeaway.aws.thunderhead.model.enums.CloudSearchPath;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRuntimeException;
 import com.homeaway.aws.thunderhead.model.sdf.SearchDocumentFormat;
 import com.homeaway.aws.thunderhead.model.upload.UploadResponse;
-import com.homeaway.aws.thunderhead.model.constants.CloudSearchPath;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import org.perf4j.aop.Profiled;
@@ -79,8 +79,8 @@ public class CloudSearchReadWriteClient extends CloudSearchReadClient {
         try {
             clientResponse = this.updateWebResource.uri(UriBuilder.fromUri(this.updateWebResource.getURI()).build())
                                                                   .path(CLOUDSEARCH_VERSION)
-                                                                  .path(CloudSearchPath.DOCUMENTS)
-                                                                  .path(CloudSearchPath.BATCH)
+                                                                  .path(CloudSearchPath.DOCUMENTS.getName())
+                                                                  .path(CloudSearchPath.BATCH.getName())
                                                                   .accept(MediaType.APPLICATION_XML)
                                                                   .entity(entity, MediaType.APPLICATION_XML)
                                                                   .post(ClientResponse.class);
