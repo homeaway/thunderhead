@@ -24,25 +24,22 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
 /**
- * This is the Java object representation of the Results found in querying the cloudsearch domain
- * 
+ * This is the Java object representation of the Results found in querying the cloudsearch domain.
+ *
  * @author jmonette
  */
 @XmlType(name = "ReturnFields")
 @XmlRootElement(name = "d")
 public class ReturnFields {
-    
-    /** The name of the result field found */
+
+    /** The name of the result field found. */
     @XmlAttribute(name = "name")
     private String name;
 
-    /** The value of the result field found */
+    /** The value of the result field found. */
     @XmlValue
     private String value;
 
-    /****************************** */
-    /*    Getters and Setters       */
-    /****************************** */
     public String getName() {
         return name;
     }
@@ -60,9 +57,9 @@ public class ReturnFields {
     }
 
     /**
-     * The hashcode representing the ReturnFields object
+     * The hashcode representing the ReturnFields object.
      *
-     * @return the hashcode representing the ReturnFields object
+     * @return the hashcode representing the ReturnFields object.
      */
     @Override
     public int hashCode() {
@@ -70,15 +67,15 @@ public class ReturnFields {
                                 value);
     }
     /**
-     * Equals method for the ReturnFields object
+     * Equals method for the ReturnFields object.
      *
-     * @param obj object to compare if this object is equal to
-     * @return true if the objects are equal, false otherwise
+     * @param obj object to compare with for equality.
+     * @return true if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {return true;}
-        if (obj == null || !(obj instanceof ReturnFields)) {return false;}
+        if (this == obj) { return true; }
+        if (obj == null || !(obj instanceof ReturnFields)) { return false; }
 
         final ReturnFields that = (ReturnFields) obj;
         return Objects.equal(this.name, that.name)
@@ -86,9 +83,9 @@ public class ReturnFields {
     }
 
     /**
-     * String representation of the ReturnFields object
+     * String representation of the ReturnFields object.
      *
-     * @return String representation of the ReturnFields object
+     * @return String representation of the ReturnFields object.
      */
     @Override
     public String toString() {

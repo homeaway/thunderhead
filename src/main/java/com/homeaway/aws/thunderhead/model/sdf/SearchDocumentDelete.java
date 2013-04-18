@@ -23,29 +23,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * This objects represents the delete type in an SDF
- * 
+ * This objects represents the delete type in an SDF.
+ *
  * @author jmonette
  */
 @XmlType(name = "Delete")
 @XmlRootElement(name = "delete")
 public class SearchDocumentDelete {
 
-    /** The id to delete */
+    /** The id to delete. */
     @XmlAttribute(name = "id")
     private String id;
 
-    /** The version to delete */
+    /** The version to delete. */
     @XmlAttribute(name = "version")
     private String version;
 
-    /****************************** */
-    /*    Getters and Setters       */
-    /****************************** */
     public String getId() {
         return id;
     }
-    
+
     public void setId(final String id) {
         this.id = id;
     }
@@ -53,15 +50,15 @@ public class SearchDocumentDelete {
     public String getVersion() {
         return version;
     }
-    
+
     public void setVersion(final String version) {
         this.version = version;
     }
 
     /**
-     * The hashcode representing the SearchDocumentDelete object
+     * The hashcode representing the SearchDocumentDelete object.
      *
-     * @return The hashcode representing the SearchDocumentDelete object
+     * @return The hashcode representing the SearchDocumentDelete object.
      */
     @Override
     public int hashCode() {
@@ -70,15 +67,15 @@ public class SearchDocumentDelete {
     }
 
     /**
-     * Equals method for the SearchDocumentDelete object
+     * Equals method for the SearchDocumentDelete object.
      *
-     * @param obj object to compare if this object is equal to
-     * @return true if the objects are equal, false otherwise
+     * @param obj object to compare if this object is equal to.
+     * @return true if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {return true;}
-        if (obj == null || !(obj instanceof SearchDocumentDelete)) {return false;}
+        if (this == obj) { return true; }
+        if (obj == null || !(obj instanceof SearchDocumentDelete)) { return false; }
 
         final SearchDocumentDelete that = (SearchDocumentDelete) obj;
         return Objects.equal(this.id, that.id)
@@ -86,9 +83,9 @@ public class SearchDocumentDelete {
     }
 
     /**
-     * String representation of the SearchDocumentDelete object
+     * String representation of the SearchDocumentDelete object.
      *
-     * @return String representation of the SearchDocumentDelete object
+     * @return String representation of the SearchDocumentDelete object.
      */
     @Override
     public String toString() {

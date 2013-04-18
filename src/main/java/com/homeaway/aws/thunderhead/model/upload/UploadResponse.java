@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 /**
- * The Java object representation of the response return from Amazon cloudsearch when updating the domain
+ * The Java object representation of the response return from Amazon cloudsearch when updating the domain.
  *
  * @author jmonette
  */
@@ -34,19 +34,19 @@ import java.util.List;
 @XmlRootElement(name = "response")
 public class UploadResponse {
 
-    /** The status of update */
+    /** The status of update. */
     @XmlAttribute(name = "status")
     private String status;
 
-    /** The number of adds POSTed to the cloudsearch domain */
+    /** The number of adds POSTed to the cloudsearch domain. */
     @XmlAttribute(name = "adds")
     private int adds;
 
-    /** The number of deletes POSTed to the cloudsearch domain */
+    /** The number of deletes POSTed to the cloudsearch domain. */
     @XmlAttribute(name = "deletes")
     private int deletes;
 
-    /** Any errors encountered in POSTing to the cloudsearch domain */
+    /** Any errors encountered in POSTing to the cloudsearch domain. */
     @XmlElementWrapper(name = "errors")
     @XmlElement(name = "error")
     private List<String> errors;
@@ -84,9 +84,9 @@ public class UploadResponse {
     }
 
     /**
-     * The hashcode representing the UploadResponse object
+     * The hashcode representing the UploadResponse object.
      *
-     * @return the hashcode representing the UploadResponse object
+     * @return the hashcode representing the UploadResponse object.
      */
     @Override
     public int hashCode() {
@@ -97,15 +97,15 @@ public class UploadResponse {
     }
 
     /**
-     * Equals method for the UploadResponse object
+     * Equals method for the UploadResponse object.
      *
-     * @param obj object to compare if this object is equal to
-     * @return true if the objects are equal, false otherwise
+     * @param obj object to compare with for equality.
+     * @return true if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {return true;}
-        if (obj == null || !(obj instanceof UploadResponse)) {return false;}
+        if (this == obj) { return true; }
+        if (obj == null || !(obj instanceof UploadResponse)) { return false; }
 
         final UploadResponse that = (UploadResponse) obj;
         return Objects.equal(this.errors, that.errors)
@@ -115,9 +115,9 @@ public class UploadResponse {
     }
 
     /**
-     * String representation of the UploadResponse object
+     * String representation of the UploadResponse object.
      *
-     * @return String representation of the UploadResponse object
+     * @return String representation of the UploadResponse object.
      */
     @Override
     public String toString() {

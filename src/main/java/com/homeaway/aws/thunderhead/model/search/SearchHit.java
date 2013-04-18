@@ -28,29 +28,26 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 /**
- * This is a Java object representation of a query hit from querying the cloudsearch domain
- * 
+ * This is a Java object representation of a query hit from querying the cloudsearch domain.
+ *
  * @author jmonette
  */
 @XmlType(name = "SearchHit")
 @XmlRootElement(name = "hit")
 public class SearchHit {
 
-    /** The id for the hit found */
+    /** The id for the hit found. */
     @XmlAttribute(name = "id")
     private String id;
 
-    /** The list of fields found for this query hit */
+    /** The list of fields found for this query hit. */
     @XmlElement(name = "d")
     private List<ReturnFields> returnFieldsList;
 
-    /** A map for easy look up of the returnFieldsList(not map via xml, built on the fly) */
+    /** A map for easy look up of the returnFieldsList(not map via xml, built on the fly). */
     @XmlTransient
     private MultivaluedMap<String, String> returnFieldsMap;
 
-    /****************************** */
-    /*    Getters and Setters       */
-    /****************************** */
     public String getId() {
         return id;
     }
@@ -67,8 +64,13 @@ public class SearchHit {
         this.returnFieldsList = returnFieldsList;
     }
 
+    /**
+     * This method is meant for easier processing as you can access the field you want directly.
+     *
+     * @return a MultivaluedMap of the return fields for easier processing
+     */
     public MultivaluedMap<String, String> getReturnFieldsMap() {
-        if(this.returnFieldsMap == null || this.returnFieldsList.size() != this.returnFieldsMap.size()) {
+        if (this.returnFieldsMap == null || this.returnFieldsList.size() != this.returnFieldsMap.size()) {
             this.returnFieldsMap = new MultivaluedMapImpl();
             for (ReturnFields searchResult : this.returnFieldsList) {
                 this.returnFieldsMap.add(searchResult.getName(), searchResult.getValue());
@@ -79,9 +81,9 @@ public class SearchHit {
     }
 
     /**
-     * The hashcode representing the SearchHit object
+     * The hashcode representing the SearchHit object.
      *
-     * @return the hashcode representing the SearchHit object
+     * @return the hashcode representing the SearchHit object.
      */
     @Override
     public int hashCode() {
@@ -90,25 +92,25 @@ public class SearchHit {
     }
 
     /**
-     * Equals method for the SearchHit object
+     * Equals method for the SearchHit object.
      *
-     * @param obj object to compare if this object is equal to
-     * @return true if the objects are equal, false otherwise
+     * @param obj object to compare with for equality.
+     * @return true if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {return true;}
-        if (obj == null || !(obj instanceof SearchHit)) {return false;}
+        if (this == obj) { return true; }
+        if (obj == null || !(obj instanceof SearchHit)) { return false; }
 
         final SearchHit that = (SearchHit) obj;
         return Objects.equal(this.id, that.id)
             && Objects.equal(this.returnFieldsList, that.returnFieldsList);
     }
-    
+
     /**
-     * String representation of the SearchHit object
+     * String representation of the SearchHit object.
      *
-     * @return String representation of the SearchHit object
+     * @return String representation of the SearchHit object.
      */
     @Override
     public String toString() {

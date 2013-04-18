@@ -24,25 +24,22 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 /**
- * The Java object representation of the SDF document to upload to Amazon cloudsearch
- * 
+ * The Java object representation of the SDF document to upload to Amazon cloudsearch.
+ *
  * @author jmonette
  */
 @XmlType(name = "Batch")
 @XmlRootElement(name = "batch")
 public class SearchDocumentFormat {
 
-    /** A batch of SDF adds to POST to Amazon */
+    /** A batch of SDF adds to POST to Amazon. */
     @XmlElement(name = "add")
     private List<SearchDocumentAdd> searchDocumentAdds;
 
-    /** A batch of SDF deletes to POST to Amazon */
+    /** A batch of SDF deletes to POST to Amazon. */
     @XmlElement(name = "delete")
     private List<SearchDocumentDelete> searchDocumentDeletes;
 
-    /****************************** */
-    /*    Getters and Setters       */
-    /****************************** */
     public List<SearchDocumentAdd> getSearchDocumentAdds() {
         return searchDocumentAdds;
     }
@@ -60,9 +57,9 @@ public class SearchDocumentFormat {
     }
 
     /**
-     * The hashcode representing the SearchDocumentFormat object
+     * The hashcode representing the SearchDocumentFormat object.
      *
-     * @return The hashcode representing the SearchDocumentFormat object
+     * @return The hashcode representing the SearchDocumentFormat object.
      */
     @Override
     public int hashCode() {
@@ -71,15 +68,15 @@ public class SearchDocumentFormat {
     }
 
     /**
-     * Equals method for the SearchDocumentFormat object
+     * Equals method for the SearchDocumentFormat object.
      *
-     * @param obj object to compare if this object is equal to
-     * @return true if the objects are equal, false otherwise
+     * @param obj object to compare if this object is equal to.
+     * @return true if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {return true;}
-        if (obj == null || !(obj instanceof SearchDocumentFormat)) {return false;}
+        if (this == obj) { return true; }
+        if (obj == null || !(obj instanceof SearchDocumentFormat)) { return false; }
 
         final SearchDocumentFormat that = (SearchDocumentFormat) obj;
         return Objects.equal(this.searchDocumentAdds, that.searchDocumentAdds)
@@ -88,9 +85,9 @@ public class SearchDocumentFormat {
     }
 
     /**
-     * String representation of the SearchDocumentFormat object
+     * String representation of the SearchDocumentFormat object.
      *
-     * @return String representation of the SearchDocumentFormat object
+     * @return String representation of the SearchDocumentFormat object.
      */
     @Override
     public String toString() {

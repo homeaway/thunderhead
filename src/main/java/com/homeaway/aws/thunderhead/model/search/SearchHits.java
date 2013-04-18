@@ -25,29 +25,26 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 /**
- * A Java object representation of a list of search hits from querying the cloud search domain
- * 
+ * A Java object representation of a list of search hits from querying the cloud search domain.
+ *
  * @author jmonette
  */
 @XmlType(name = "SearchHits")
 @XmlRootElement(name = "hits")
 public class SearchHits {
 
-    /** The number of documents found */
+    /** The number of documents found. */
     @XmlAttribute(name = "found")
     private int count;
 
-    /** The starting index */
+    /** The starting index. */
     @XmlAttribute(name = "start")
     private int start;
 
-    /** A list of SearchHit object representing documents found */
+    /** A list of SearchHit object representing documents found. */
     @XmlElement(name = "hit")
     private List<SearchHit> hits;
 
-    /****************************** */
-    /*    Getters and Setters       */
-    /****************************** */
     public int getCount() {
         return count;
     }
@@ -73,9 +70,9 @@ public class SearchHits {
     }
 
     /**
-     * The hashcode representing the SearchHits object
+     * The hashcode representing the SearchHits object.
      *
-     * @return the hashcode representing the SearchHits object
+     * @return the hashcode representing the SearchHits object.
      */
     @Override
     public int hashCode() {
@@ -85,15 +82,15 @@ public class SearchHits {
     }
 
     /**
-     * Equals method for the SearchHits object
+     * Equals method for the SearchHits object.
      *
-     * @param obj object to compare if this object is equal to
-     * @return true if the objects are equal, false otherwise
+     * @param obj object to compare with for equality.
+     * @return true if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {return true;}
-        if (obj == null || !(obj instanceof SearchHits)) {return false;}
+        if (this == obj) { return true; }
+        if (obj == null || !(obj instanceof SearchHits)) { return false; }
 
         final SearchHits that = (SearchHits) obj;
         return Objects.equal(this.count, that.count)
@@ -102,9 +99,9 @@ public class SearchHits {
     }
 
     /**
-     * String representation of the SearchHits object
+     * String representation of the SearchHits object.
      *
-     * @return String representation of the SearchHits object
+     * @return String representation of the SearchHits object.
      */
     @Override
     public String toString() {

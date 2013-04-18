@@ -15,6 +15,9 @@
  */
 
 @XmlAccessorType(XmlAccessType.FIELD)
+/**
+ * This package models the response sent from cloudsearch on uploads to the search domain.
+ */
 package com.homeaway.aws.thunderhead.model.upload;
 
 import javax.xml.bind.annotation.XmlAccessType;

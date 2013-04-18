@@ -23,31 +23,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
+ * The SearchResponse object.
+ *
  * @author jmonette
  */
 @XmlType(name = "SearchResponse")
 @XmlRootElement(name = "results")
 public class SearchResponse {
 
-    /** How to rank the query results */
+    /** How to rank the query results. */
     @XmlElement(name = "rank")
     private String rank;
 
-    /** What expression was being matched */
+    /** What expression was being matched. */
     @XmlElement(name = "match-expr")
     private String matchExpr;
 
-    /** The SearchHits object representing the documents found */
+    /** The SearchHits object representing the documents found. */
     @XmlElement(name = "hits")
     private SearchHits found;
 
-    /** The SearchInfo object representing some statistics from querying */
+    /** The SearchInfo object representing some statistics from querying. */
     @XmlElement(name = "info")
     private SearchInfo info;
 
-    /****************************** */
-    /*    Getters and Setters       */
-    /****************************** */
     public String getRank() {
         return rank;
     }
@@ -81,9 +80,9 @@ public class SearchResponse {
     }
 
     /**
-     * The hashcode representing the SearchResponse object
+     * The hashcode representing the SearchResponse object.
      *
-     * @return the hashcode representing the SearchResponse object
+     * @return the hashcode representing the SearchResponse object.
      */
     @Override
     public int hashCode() {
@@ -94,15 +93,15 @@ public class SearchResponse {
     }
 
     /**
-     * Equals method for the SearchResponse object
+     * Equals method for the SearchResponse object.
      *
-     * @param obj object to compare if this object is equal to
-     * @return true if the objects are equal, false otherwise
+     * @param obj object to compare with for equality.
+     * @return true if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {return true;}
-        if (obj == null || !(obj instanceof SearchResponse)) {return false;}
+        if (this == obj) { return true; }
+        if (obj == null || !(obj instanceof SearchResponse)) { return false; }
 
         final SearchResponse that = (SearchResponse) obj;
         return Objects.equal(this.rank, that.rank)
@@ -112,9 +111,9 @@ public class SearchResponse {
     }
 
     /**
-     * String representation of the SearchResponse object
+     * String representation of the SearchResponse object.
      *
-     * @return String representation of the SearchResponse object
+     * @return String representation of the SearchResponse object.
      */
     @Override
     public String toString() {

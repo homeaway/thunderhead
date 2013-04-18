@@ -25,33 +25,30 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 /**
- * This objects represents the add type in an SDF
- * 
+ * This objects represents the add type in an SDF.
+ *
  * @author jmonette
  */
 @XmlType(name = "Add")
 @XmlRootElement(name = "add")
 public class SearchDocumentAdd {
 
-    /** The id for the add operation */
+    /** The id for the add operation. */
     @XmlAttribute(name = "id")
     private String id;
 
-    /** The version for the add operation */
+    /** The version for the add operation. */
     @XmlAttribute(name = "version")
     private String version;
 
-    /** The language associated with the add operation */
+    /** The language associated with the add operation. */
     @XmlAttribute(name = "lang")
     private String lang;
 
-    /** A list of fields to be indexed */
+    /** A list of fields to be indexed. */
     @XmlElement(name = "field")
     private List<Field> fields;
 
-    /****************************** */
-    /*    Getters and Setters       */
-    /****************************** */
     public String getId() {
         return id;
     }
@@ -85,9 +82,9 @@ public class SearchDocumentAdd {
     }
 
     /**
-     * The hashcode representing the SearchDocumentAdd object
+     * The hashcode representing the SearchDocumentAdd object.
      *
-     * @return The hashcode representing the SearchDocumentAdd object
+     * @return The hashcode representing the SearchDocumentAdd object.
      */
     @Override
     public int hashCode() {
@@ -98,15 +95,15 @@ public class SearchDocumentAdd {
     }
 
     /**
-     * Equals method for the SearchDocumentAdd object
+     * Equals method for the SearchDocumentAdd object.
      *
-     * @param obj object to compare if this object is equal to
-     * @return true if the objects are equal, false otherwise
+     * @param obj object to compare if this object is equal to.
+     * @return true if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {return true;}
-        if (obj == null || !(obj instanceof SearchDocumentAdd)) {return false;}
+        if (this == obj) { return true; }
+        if (obj == null || !(obj instanceof SearchDocumentAdd)) { return false; }
 
         final SearchDocumentAdd that = (SearchDocumentAdd) obj;
         return Objects.equal(this.id, that.id)
@@ -117,9 +114,9 @@ public class SearchDocumentAdd {
     }
 
     /**
-     * String representation of the SearchDocumentAdd object
+     * String representation of the SearchDocumentAdd object.
      *
-     * @return String representation of the SearchDocumentAdd object
+     * @return String representation of the SearchDocumentAdd object.
      */
     @Override
     public String toString() {

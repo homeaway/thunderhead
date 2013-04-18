@@ -38,88 +38,157 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static org.mockito.Mockito.when;
 
 /**
+ * This class tests that the Exceptions are return properly.
+ *
  * @author jmonette
  */
 @RunWith(MockitoJUnitRunner.class)
 public class CloudSearchExceptionsTest {
-    
-    private CloudSearchReadWriteClient cloudSearchReadWriteClient = new CloudSearchReadWriteClient();
+
     @Mock private ClientResponse clientResponse;
-    
+    private CloudSearchReadWriteClient cloudSearchReadWriteClient = new CloudSearchReadWriteClient();
+
+    /**
+     * Testing that CloudSearchBadRequestException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchBadRequestException.class)
     public void testBadRequestException() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(400);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 
+    /**
+     * Testing that CloudSearchForbiddenException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchForbiddenException.class)
     public void testForbiddenException() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(403);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 
+    /**
+     * Testing that CloudSearchNotFoundException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchNotFoundException.class)
     public void testNotFoundException() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(404);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 
+    /**
+     * Testing that CloudSearchMethodNotAllowedException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchMethodNotAllowedException.class)
     public void testMethodNotAllowedException() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(405);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 
+    /**
+     * Testing that CloudSearchNotAcceptException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchNotAcceptException.class)
     public void testNotAcceptableException() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(406);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 
+    /**
+     * Testing that CloudSearchRequestTimeoutException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchRequestTimeoutException.class)
     public void testRequestTimeoutException() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(408);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 
+    /**
+     * Testing that CloudSearchLengthRequiredException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchLengthRequiredException.class)
     public void testLengthRequiredExceptionSearchDomain() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(401);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 
+    /**
+     * Testing that CloudSearchLengthRequiredException is thrown when necessary.
+     * This is not a duplicate, two different status codes can be thrown for this exception.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchLengthRequiredException.class)
     public void testLengthRequiredExceptionUpdateDomain() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(411);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 
+    /**
+     * Testing that CloudSearchRequestTooLargeException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchRequestTooLargeException.class)
     public void testRequestTooLongException() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(413);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
+
+    /**
+     * Testing that CloudSearchInvalidCharacterSetException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchInvalidCharacterSetException.class)
     public void testInvalidCharacterSetException() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(415);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 
+    /**
+     * Testing that CloudSearchInternalException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchInternalException.class)
     public void testInternalServerErrorException() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(500);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 
+    /**
+     * Testing that CloudSearchBandwidthExceededException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchBandwidthExceededException.class)
     public void testBandwidthExceededException() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(509);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 
+    /**
+     * Testing that CloudSearchGenericException is thrown when necessary.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test(expected = CloudSearchGenericException.class)
     public void testGenericException() throws CloudSearchClientException {
-        when(clientResponse.getStatus()).thenReturn(402);
+        when(clientResponse.getStatus()).thenReturn(0);
         cloudSearchReadWriteClient.checkStatus(clientResponse);
     }
 }

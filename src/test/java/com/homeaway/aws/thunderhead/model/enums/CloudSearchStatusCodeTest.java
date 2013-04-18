@@ -22,10 +22,15 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
+ * Test class for testing the CloudSearchStatusCode enum.
+ *
  * @author jmonette
  */
 public class CloudSearchStatusCodeTest {
 
+    /**
+     * Testing that using fromStatus return CloudSearchStatusCode.UNKNOWN for unknown statuses passed in as parameters.
+     */
     @Test
     public void testFromStatusUnknown() {
         assertThat(CloudSearchStatusCode.fromStatus(30), is(CloudSearchStatusCode.UNKNOWN));

@@ -17,6 +17,9 @@
 @XmlSchema(namespace = "http://cloudsearch.amazonaws.com/2011-02-01/results",
            elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 @XmlAccessorType(XmlAccessType.FIELD)
+/**
+ * This package models the response sent from cloudsearch on query requests to the search domain.
+ */
 package com.homeaway.aws.thunderhead.model.search;
 
 import javax.xml.bind.annotation.XmlAccessType;

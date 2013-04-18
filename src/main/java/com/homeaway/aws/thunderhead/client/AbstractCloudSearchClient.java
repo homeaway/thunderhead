@@ -18,37 +18,39 @@ package com.homeaway.aws.thunderhead.client;
 
 import com.homeaway.aws.thunderhead.model.enums.CloudSearchStatusCode;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchBadRequestException;
+import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchBandwidthExceededException;
+import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchForbiddenException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchGenericException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchInternalException;
+import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchInvalidCharacterSetException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchLengthRequiredException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchMethodNotAllowedException;
-import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRequestTimeoutException;
-import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRequestTooLargeException;
-import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchBandwidthExceededException;
-import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException;
-import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchInvalidCharacterSetException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchNotAcceptException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchNotFoundException;
+import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRequestTimeoutException;
+import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRequestTooLargeException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * An abstract client that the other Cloudsearch clients inherit from
+ * An abstract client that the other Cloudsearch clients inherit from.
  *
  * @author jmonette
  */
 public abstract class AbstractCloudSearchClient {
 
-    /** The AWS cloud search version that the client uses */
+    /** The AWS cloud search version that the client uses. */
     public static final String CLOUDSEARCH_VERSION = "2011-02-01";
 
-    /** The logger used for logging */
+    /** The logger used for logging. */
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractCloudSearchClient.class);
 
+    /** The WebResource used for querying the cloudsearch domain. */
     protected WebResource queryWebResource;
+    /** The WebResource used for updating the cloudsearch domain. */
     protected WebResource updateWebResource;
 
     /**
@@ -57,24 +59,24 @@ public abstract class AbstractCloudSearchClient {
     protected AbstractCloudSearchClient() {}
 
     /**
-     * The WebResource to query the cloudsearch domain with
+     * The WebResource to query the cloudsearch domain with.
      *
-     * @param queryWebResource the WebResource to query the cloudsearch domain with
+     * @param queryWebResource the WebResource to query the cloudsearch domain with.
      */
     public abstract void setQueryWebResource(final WebResource queryWebResource);
 
     /**
-     * The WebResource to update the cloudsearch domain with
+     * The WebResource to update the cloudsearch domain with.
      *
-     * @param updateWebResource the WebResource to update the cloudsearch domain with
+     * @param updateWebResource the WebResource to update the cloudsearch domain with.
      */
     public abstract void setUpdateWebResource(final WebResource updateWebResource);
 
     /**
-     * Checks the status of the response and throws exceptions accordingly
+     * Checks the status of the response and throws exceptions accordingly.
      *
-     * @param response the response to check the status and build exceptions from
-     * @throws CloudSearchClientException if the response did not contain a 2XX status
+     * @param response the response to check the status and build exceptions from.
+     * @throws CloudSearchClientException
      */
     protected void checkStatus(ClientResponse response) throws CloudSearchClientException {
         int status = response.getStatus();
@@ -101,10 +103,10 @@ public abstract class AbstractCloudSearchClient {
     }
 
     /**
-     * Determines whether or not the http request was successful
+     * Determines whether or not the http request was successful.
      *
-     * @param status the status for the http response
-     * @return true if the http request was successful
+     * @param status the status for the http response.
+     * @return true if the http request was successful.
      */
     private boolean isSuccessful(int status) {
         return (status >= 200 && status < 400);

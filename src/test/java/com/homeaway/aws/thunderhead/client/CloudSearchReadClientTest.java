@@ -11,18 +11,23 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.ws.rs.core.MultivaluedMap;
 
-import java.util.Collections;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
+ * This test class is used for testing the CloudSearchReadClient.
+ *
  * @author jmonette
  */
 @RunWith(MockitoJUnitRunner.class)
 public class CloudSearchReadClientTest {
     private CloudSearchReadWriteClient cloudSearchReadWriteClient = new CloudSearchReadWriteClient();
 
+    /**
+     * Test to make sure that patchedQueryParams works with no return fields provided.
+     *
+     * @throws CloudSearchClientException
+     */
     @Test
     public void testNoReturnFieldsPatchQueryParams() throws CloudSearchClientException {
         MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
@@ -32,6 +37,9 @@ public class CloudSearchReadClientTest {
         assertThat(patchedQueryParams, is(queryParams));
     }
 
+    /**
+     * Testing that the patched query params method works as expected.
+     */
     @Test
     public void testPatchQueryParams() {
         String[] returnFields = new String[] {"this", "is", "a", "test"};
@@ -40,6 +48,7 @@ public class CloudSearchReadClientTest {
         MultivaluedMap<String, String> patchedQueryParams = cloudSearchReadWriteClient.patchReturnFields(queryParams);
 
         patchedQueryParams.get(CloudSearchQueryParam.RETURN_FIELDS);
-        assertThat(patchedQueryParams.getFirst(CloudSearchQueryParam.RETURN_FIELDS), is(StringUtils.join(Lists.newArrayList(returnFields), ",")));
+        assertThat(patchedQueryParams.getFirst(CloudSearchQueryParam.RETURN_FIELDS),
+                   is(StringUtils.join(Lists.newArrayList(returnFields), ",")));
     }
 }
