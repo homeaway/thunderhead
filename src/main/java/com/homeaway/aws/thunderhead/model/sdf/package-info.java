@@ -17,6 +17,9 @@
 @XmlSchema(namespace = "http://cloudsearch.amazonaws.com/2011-02-01/results",
            elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 @XmlAccessorType(XmlAccessType.FIELD)
+/**
+ * This package contains the model for the search document format.
+ */
 package com.homeaway.aws.thunderhead.model.sdf;
 
 import javax.xml.bind.annotation.XmlAccessType;

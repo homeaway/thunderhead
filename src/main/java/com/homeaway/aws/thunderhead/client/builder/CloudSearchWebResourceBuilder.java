@@ -28,8 +28,10 @@ import java.net.URISyntaxException;
  *
  * @author jmonette
  */
-public class CloudSearchWebResourceBuilder {
+public final class CloudSearchWebResourceBuilder {
+    /** The default connect timeout value. */
     public static final int DEFAULT_CONNECT_TIMEOUT = 2000;
+    /** The default read timeout value. */
     public static final int DEFAULT_READ_TIMEOUT = 3000;
 
     private String host;
@@ -37,40 +39,69 @@ public class CloudSearchWebResourceBuilder {
     private int readTimeout = DEFAULT_READ_TIMEOUT;
     private boolean secure = false;
 
-    private CloudSearchWebResourceBuilder() {}
+    private CloudSearchWebResourceBuilder() { }
 
+    /**
+     * Static factory method for creating a builder.
+     * @return the builder created from this factory method.
+     */
     public static CloudSearchWebResourceBuilder newInstance() {
         return new CloudSearchWebResourceBuilder();
     }
 
-    public CloudSearchWebResourceBuilder host(String host) {
+    /**
+     * Configure the builder with the host.
+     *
+     * @param host the host for the web resource.
+     * @return the builder with the host set.
+     */
+    public CloudSearchWebResourceBuilder host(final String host) {
         this.host = host;
         return this;
     }
 
-    public CloudSearchWebResourceBuilder connectTimeout(int connectTimeout) {
+    /**
+     * Configure the builder with a connect timeout.
+     *
+     * @param connectTimeout the connect timeout to configure the builder with.
+     * @return the builder with the connect set.
+     */
+    public CloudSearchWebResourceBuilder connectTimeout(final int connectTimeout) {
         this.connectTimeout = connectTimeout;
         return this;
     }
 
-    public CloudSearchWebResourceBuilder readTimeout(int readTimeout) {
+    /**
+     * Configure the builder with a read timeout.
+     *
+     * @param readTimeout the read timeout to configure the builder with.
+     * @return the builder with the read timeout set.
+     */
+    public CloudSearchWebResourceBuilder readTimeout(final int readTimeout) {
         this.readTimeout = readTimeout;
         return this;
     }
 
-    public CloudSearchWebResourceBuilder useHttps(boolean secure) {
+    /**
+     * Configure the builder to use secure http protocol or not.
+     *
+     * @param secure whether or not to use https or http.
+     * @return the builder with whether or not to use https
+     */
+    public CloudSearchWebResourceBuilder useHttps(final boolean secure) {
         this.secure = secure;
         return this;
     }
 
     /**
-     * Build and return a WebResource
-     * @return the WebResource that was built from this builder
-     * @throws URISyntaxException if the host provided does not match a URI scheme
+     * Build and return a WebResource.
+     *
+     * @return the WebResource that was built from this builder.
+     * @throws URISyntaxException if the host provided does not match a URI scheme.
      */
     public WebResource build() throws URISyntaxException {
 
-        if(StringUtils.isEmpty(this.host)) {
+        if (StringUtils.isEmpty(this.host)) {
             throw new IllegalStateException("host must not be null or empty");
         }
 

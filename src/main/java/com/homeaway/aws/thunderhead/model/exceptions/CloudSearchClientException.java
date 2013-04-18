@@ -21,17 +21,17 @@ import com.google.common.base.Objects;
 import java.util.UUID;
 
 /**
- * A general cloud search exception representing the errors returned from Amazon
- * 
+ * A general cloud search exception representing the errors returned from Amazon.
+ *
  * @author jmonette
  */
 public class CloudSearchClientException extends Exception {
-    
+
     private static final long serialVersionUID = 954670374490397602L;
     private UUID errorId;
     private Integer cloudSearchStatusCode;
     private String entity;
-    
+
     public CloudSearchClientException(Integer cloudSearchStatusCode, String message, String entity) {
         super(message);
         this.errorId = UUID.randomUUID();
@@ -40,32 +40,32 @@ public class CloudSearchClientException extends Exception {
     }
 
     /**
-     * The error id assigned to this exception
-     * 
-     * @return the error id assigned to this exception
+     * The error id assigned to this exception.
+     *
+     * @return the error id assigned to this exception.
      */
     public UUID getErrorId() {
         return this.errorId;
     }
 
     /**
-     * Http status code in the Amazon error
+     * Http status code in the Amazon error.
      *
-     * @return the http status code return from Amazon
+     * @return the http status code return from Amazon.
      */
     public Integer getCloudSearchStatusCode() {
         return this.cloudSearchStatusCode;
     }
-    
+
     @Override
     public String getMessage() {
         return toString();
     }
 
     /**
-     * String representation of the CloudSearchException
-     * 
-     * @return string representation of the CloudSearchException
+     * String representation of the CloudSearchException.
+     *
+     * @return string representation of the CloudSearchException.
      */
     @Override
     public String toString() {

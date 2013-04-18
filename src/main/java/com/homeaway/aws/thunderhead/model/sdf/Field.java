@@ -24,25 +24,22 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
 /**
- * This object representation the fields to be indexed in the SDF
- * 
+ * This object representation the fields to be indexed in the SDF.
+ *
  * @author jmonette
  */
 @XmlType(name = "Field")
 @XmlRootElement(name = "field")
 public class Field {
-    
-    /** The name of the field found */
+
+    /** The name of the field found. */
     @XmlAttribute(name = "name")
     private String name;
 
-    /** The value of the field found */
+    /** The value of the field found. */
     @XmlValue
     private String value;
 
-    /****************************** */
-    /*    Getters and Setters       */
-    /****************************** */
     public String getName() {
         return name;
     }
@@ -54,15 +51,15 @@ public class Field {
     public String getValue() {
         return value;
     }
-    
+
     public void setValue(final String value) {
         this.value = value;
     }
 
     /**
-     * The hashcode representing the Field object
-     * 
-     * @return the hashcode representing the Field object
+     * The hashcode representing the Field object.
+     *
+     * @return the hashcode representing the Field object.
      */
     @Override
     public int hashCode() {
@@ -71,15 +68,15 @@ public class Field {
     }
 
     /**
-     * Equals method for the Field object
-     * 
-     * @param obj object to compare if this object is equal to
-     * @return true if the objects are equal, false otherwise
+     * Equals method for the Field object.
+     *
+     * @param obj object to compare if this object is equal to.
+     * @return true if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {return true;}
-        if (obj == null || !(obj instanceof Field)) {return false;}
+        if (this == obj) { return true; }
+        if (obj == null || !(obj instanceof Field)) { return false; }
 
         final Field that = (Field) obj;
         return Objects.equal(this.name, that.name)
@@ -87,9 +84,9 @@ public class Field {
     }
 
     /**
-     * String representation of the Field object
-     * 
-     * @return String representation of the Field object
+     * String representation of the Field object.
+     *
+     * @return String representation of the Field object.
      */
     @Override
     public String toString() {

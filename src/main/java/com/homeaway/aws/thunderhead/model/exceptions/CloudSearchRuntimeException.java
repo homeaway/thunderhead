@@ -21,21 +21,35 @@ import com.google.common.base.Objects;
 import java.util.UUID;
 
 /**
+ * This is a CloudSearchRuntimeException. This is a wrapper around any RuntimeExceptions that can happen during the
+ * cloudsearch process.
+ *
  * @author jmonette
  */
 public class CloudSearchRuntimeException extends RuntimeException {
     private static final long serialVersionUID = -5975214219537786082L;
     private UUID errorId;
-    
+
+    /**
+     * CloudSearchRuntimeException constructor.
+     *
+     * @param message the message to attach to the exception.
+     * @param cause the cause of this exception
+     */
     public CloudSearchRuntimeException(String message, Throwable cause) {
         super(message, cause);
         this.errorId = UUID.randomUUID();
     }
-    
+
     public UUID getErrorId() {
         return this.errorId;
     }
-    
+
+    /**
+     * String representation of the CloudSearchRuntimeException object.
+     *
+     * @return String representation of the CloudSearchRuntimeException object.
+     */
     @Override
     public String toString() {
         return Objects.toStringHelper(this)

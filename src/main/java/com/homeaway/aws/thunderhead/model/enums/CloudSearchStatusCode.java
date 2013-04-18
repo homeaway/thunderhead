@@ -19,7 +19,7 @@ package com.homeaway.aws.thunderhead.model.enums;
 import com.google.common.base.Objects;
 
 /**
- * Possible status codes used in cloudsearch
+ * Possible status codes used in cloudsearch.
  *
  * @author jmonette
  */
@@ -35,18 +35,19 @@ public enum CloudSearchStatusCode {
     INVALID_CHARACTER_SET(415, 415, "Invalid Character Set"),
     INTERNAL_SERVER_ERROR(500, 500, "Internal Server Error"),
     BANDWIDTH_LIMIT_EXCEEDED(509, 509, "Bandwidth Exceeded"),
-    
+
     UNKNOWN(-1, -1, "unknown");
-    
+
     private Integer updateStatusCode;
     private Integer searchStatusCode;
     private String errorString;
-    
+
     private CloudSearchStatusCode(Integer updateStatusCode, Integer searchStatusCode, String errorString) {
         this.updateStatusCode = updateStatusCode;
         this.searchStatusCode = searchStatusCode;
         this.errorString = errorString;
     }
+
     public Integer getUpdateStatusCode() {
         return this.updateStatusCode;
     }
@@ -54,21 +55,21 @@ public enum CloudSearchStatusCode {
     public Integer getSearchStatusCode() {
         return this.searchStatusCode;
     }
-    
+
     public String getErrorString() {
         return this.errorString;
     }
-    
+
     public static CloudSearchStatusCode fromStatus(int status) {
         for (CloudSearchStatusCode cloudSearchStatusCode : values()) {
             if (cloudSearchStatusCode.getUpdateStatusCode() == status || cloudSearchStatusCode.getSearchStatusCode() == status) {
                 return cloudSearchStatusCode;
             }
         }
-        
+
         return UNKNOWN;
     }
-    
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)

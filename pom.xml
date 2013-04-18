@@ -146,19 +146,21 @@
           </configuration>
           <executions>
             <execution>
+              <id>checkstyle-checkstyle</id>
               <phase>validate</phase>
               <goals>
                 <goal>checkstyle</goal>
               </goals>
             </execution>
           </executions>
-	</plugin>
+        </plugin>
 
 	<plugin>
 	  <groupId>org.apache.maven.plugins</groupId>
 	  <artifactId>maven-compiler-plugin</artifactId>
 	  <version>3.0</version>
 	  <configuration>
+        <encoding>UTF-8</encoding>
 	    <source>1.6</source>
 	    <target>1.6</target>
 	  </configuration>
@@ -169,7 +171,7 @@
 	  <artifactId>maven-surefire-plugin</artifactId>
 	  <version>2.7.1</version>
 	  <configuration>
-	    <debugForkedProcess>${test.debug}</debugForkedProcess>
+	    <debugForkedProcess>true</debugForkedProcess>
 	    <forkMode>once</forkMode>
 	    <includes>
 	      <include>**/*Test.java</include>

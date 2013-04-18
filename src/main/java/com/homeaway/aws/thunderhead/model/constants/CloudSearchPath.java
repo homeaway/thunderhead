@@ -17,7 +17,7 @@
 package com.homeaway.aws.thunderhead.model.constants;
 
 /**
- * This class defines constants for paths in cloudsearch
+ * This class defines constants for paths in cloudsearch.
  *
  * @author jmonette
  */

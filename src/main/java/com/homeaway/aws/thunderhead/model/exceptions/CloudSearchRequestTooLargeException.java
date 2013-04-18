@@ -17,12 +17,21 @@
 package com.homeaway.aws.thunderhead.model.exceptions;
 
 /**
+ * CloudSearchRequestTooLargeException - CloudSearch has rejected the request because of the size of the request.
+ *
  * @author jmonette
  */
 public class CloudSearchRequestTooLargeException extends CloudSearchClientException {
     private static final long serialVersionUID = 332628648684612319L;
 
-    public CloudSearchRequestTooLargeException(Integer amazonStatusCode, String message, String entity) {
-        super(amazonStatusCode, message, entity);
+    /**
+     * CloudSearchRequestTooLargeException constructor.
+     *
+     * @param cloudSearchStatusCode the status code return from CloudSearch.
+     * @param message the message attached to the exception.
+     * @param entity the request entity as a string.
+     */
+    public CloudSearchRequestTooLargeException(Integer cloudSearchStatusCode, String message, String entity) {
+        super(cloudSearchStatusCode, message, entity);
     }
 }

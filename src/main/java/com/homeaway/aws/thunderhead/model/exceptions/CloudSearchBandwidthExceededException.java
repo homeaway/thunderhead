@@ -20,7 +20,7 @@ package com.homeaway.aws.thunderhead.model.exceptions;
  * @author jmonette
  */
 public class CloudSearchBandwidthExceededException extends CloudSearchClientException {
-    
+
     private static final long serialVersionUID = 3820977453828910890L;
 
     public CloudSearchBandwidthExceededException(Integer amazonStatusCode, String message, String entity) {

@@ -25,7 +25,7 @@ import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchInternalExceptio
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchInvalidCharacterSetException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchLengthRequiredException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchMethodNotAllowedException;
-import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchNotAcceptException;
+import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchNotAcceptableException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchNotFoundException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRequestTimeoutException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRequestTooLargeException;
@@ -97,7 +97,7 @@ public class CloudSearchExceptionsTest {
      *
      * @throws CloudSearchClientException
      */
-    @Test(expected = CloudSearchNotAcceptException.class)
+    @Test(expected = CloudSearchNotAcceptableException.class)
     public void testNotAcceptableException() throws CloudSearchClientException {
         when(clientResponse.getStatus()).thenReturn(406);
         cloudSearchReadWriteClient.checkStatus(clientResponse);

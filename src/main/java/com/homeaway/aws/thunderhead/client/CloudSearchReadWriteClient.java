@@ -29,7 +29,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
 /**
- * This class is a client for uploading SDF documents to the cloudsearch domain and querying the cloudsearch domain
+ * This class is a client for uploading SDF documents to the cloudsearch domain and querying the cloudsearch domain.
  *
  * @author jmonette
  */
@@ -37,16 +37,16 @@ public class CloudSearchReadWriteClient extends CloudSearchReadClient {
 
     /**
      * Default constructor. If this constructor is used then setUpdateWebResource and setQueryWebResource must be called to
-     * set the WebResources needed by the client
+     * set the WebResources needed by the client.
      */
     public CloudSearchReadWriteClient() {
         super();
     }
 
     /**
-     * The WebResource to update the cloudsearch domain with
+     * The WebResource to update the cloudsearch domain with.
      *
-     * @param updateWebResource the WebResource to update the cloudsearch domain with
+     * @param updateWebResource the WebResource to update the cloudsearch domain with.
      */
     @Override
     public void setUpdateWebResource(final WebResource updateWebResource) {
@@ -54,9 +54,9 @@ public class CloudSearchReadWriteClient extends CloudSearchReadClient {
     }
 
     /**
-     * The WebResource to query the cloudsearch domain with
+     * The WebResource to query the cloudsearch domain with.
      *
-     * @param queryWebResource the WebResource to query the cloudsearch domain with
+     * @param queryWebResource the WebResource to query the cloudsearch domain with.
      */
     @Override
     public void setQueryWebResource(final WebResource queryWebResource) {
@@ -64,11 +64,11 @@ public class CloudSearchReadWriteClient extends CloudSearchReadClient {
     }
 
     /**
-     * This method will post the SDF to the Amazon. The SDF can have both adds and delete requests
+     * This method will post the SDF to the Amazon. The SDF can have both adds and delete requests.
      *
-     * @param entity the SDF entity
-     * @return returns a UploadResponse object which represents the output returned from Amazon
-     * @throws com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException if the response did not return a 2XX status code
+     * @param entity the SDF entity.
+     * @return returns a UploadResponse object which represents the output returned from Amazon.
+     * @throws CloudSearchClientException if the response did not return a 2XX status code.
      */
     @Profiled(tag = "CloudSearchReadWriteClient.updateDomain")
     public UploadResponse updateDomain(SearchDocumentFormat entity) throws CloudSearchClientException {
@@ -90,10 +90,10 @@ public class CloudSearchReadWriteClient extends CloudSearchReadClient {
             checkStatus(clientResponse);
 
             uploadResponse = clientResponse.getEntity(UploadResponse.class);
-        } catch(RuntimeException re) {
+        } catch (RuntimeException re) {
             throw new CloudSearchRuntimeException(re.getMessage(), re);
         } finally {
-            if(clientResponse != null) {
+            if (clientResponse != null) {
                 clientResponse.close();
             }
         }

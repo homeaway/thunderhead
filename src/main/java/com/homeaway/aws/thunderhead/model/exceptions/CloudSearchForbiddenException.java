@@ -16,7 +16,6 @@
 
 package com.homeaway.aws.thunderhead.model.exceptions;
 
-
 /**
  * @author jmonette
  */

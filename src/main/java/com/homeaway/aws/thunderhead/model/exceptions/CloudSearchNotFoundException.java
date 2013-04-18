@@ -17,12 +17,21 @@
 package com.homeaway.aws.thunderhead.model.exceptions;
 
 /**
+ * CloudSearchNotFoundException - CloudSearch cannot find the resource that is being requested.
+ *
  * @author jmonette
  */
 public class CloudSearchNotFoundException extends CloudSearchClientException {
     private static final long serialVersionUID = -4919478139667633571L;
 
-    public CloudSearchNotFoundException(Integer amazonStatusCode, String message, String entity) {
-        super(amazonStatusCode, message, entity);
+    /**
+     * CloudSearchNotFoundException constructor.
+     *
+     * @param cloudSearchStatusCode the status code return from CloudSearch.
+     * @param message the message attached to the exception.
+     * @param entity the request entity as a string.
+     */
+    public CloudSearchNotFoundException(Integer cloudSearchStatusCode, String message, String entity) {
+        super(cloudSearchStatusCode, message, entity);
     }
 }

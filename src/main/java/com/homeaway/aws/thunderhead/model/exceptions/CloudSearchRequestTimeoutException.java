@@ -17,12 +17,21 @@
 package com.homeaway.aws.thunderhead.model.exceptions;
 
 /**
+ * CloudSearchRequestTimeoutException - CloudSearch timed out in processing the request.
+ *
  * @author jmonette
  */
 public class CloudSearchRequestTimeoutException extends CloudSearchClientException {
     private static final long serialVersionUID = 888689010300861125L;
 
-    public CloudSearchRequestTimeoutException(Integer amazonStatusCode, String message, String entity) {
-        super(amazonStatusCode, message, entity);
+    /**
+     * CloudSearchRequestTimeoutException constructor.
+     *
+     * @param cloudSearchStatusCode the status code return from CloudSearch.
+     * @param message the message attached to the exception.
+     * @param entity the request entity as a string.
+     */
+    public CloudSearchRequestTimeoutException(Integer cloudSearchStatusCode, String message, String entity) {
+        super(cloudSearchStatusCode, message, entity);
     }
 }

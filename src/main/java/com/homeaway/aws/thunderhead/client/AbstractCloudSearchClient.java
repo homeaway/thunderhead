@@ -26,7 +26,7 @@ import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchInternalExceptio
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchInvalidCharacterSetException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchLengthRequiredException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchMethodNotAllowedException;
-import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchNotAcceptException;
+import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchNotAcceptableException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchNotFoundException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRequestTimeoutException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRequestTooLargeException;
@@ -56,7 +56,7 @@ public abstract class AbstractCloudSearchClient {
     /**
      * Default constructor.
      */
-    protected AbstractCloudSearchClient() {}
+    protected AbstractCloudSearchClient() { }
 
     /**
      * The WebResource to query the cloudsearch domain with.
@@ -91,7 +91,7 @@ public abstract class AbstractCloudSearchClient {
             case FORBIDDEN: throw new CloudSearchForbiddenException(status, CloudSearchStatusCode.FORBIDDEN.getErrorString(), entity);
             case NOT_FOUND: throw new CloudSearchNotFoundException(status, CloudSearchStatusCode.NOT_FOUND.getErrorString(), entity);
             case METHOD_NOT_ALLOWED: throw new CloudSearchMethodNotAllowedException(status, CloudSearchStatusCode.METHOD_NOT_ALLOWED.getErrorString(), entity);
-            case NOT_ACCEPTABLE: throw new CloudSearchNotAcceptException(status, CloudSearchStatusCode.NOT_ACCEPTABLE.getErrorString(), entity);
+            case NOT_ACCEPTABLE: throw new CloudSearchNotAcceptableException(status, CloudSearchStatusCode.NOT_ACCEPTABLE.getErrorString(), entity);
             case REQUEST_TIMEOUT: throw new CloudSearchRequestTimeoutException(status, CloudSearchStatusCode.REQUEST_TIMEOUT.getErrorString(), entity);
             case LENGTH_REQUIRED: throw new CloudSearchLengthRequiredException(status, CloudSearchStatusCode.LENGTH_REQUIRED.getErrorString(), entity);
             case REQUEST_TOO_LONG: throw new CloudSearchRequestTooLargeException(status, CloudSearchStatusCode.REQUEST_TOO_LONG.getErrorString(), entity);

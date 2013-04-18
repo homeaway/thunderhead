@@ -34,24 +34,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is a client for querying the cloudsearch domain
- * 
+ * This class is a client for querying the cloudsearch domain.
+ *
  * @author jmonette
  */
 public class CloudSearchReadClient extends AbstractCloudSearchClient {
 
     /**
      * Default constructor. If this constructor is used then setUpdateWebResource and setQueryWebResource must be called to
-     * set the WebResources needed by the client
+     * set the WebResources needed by the client.
      */
     public CloudSearchReadClient() {
         super();
     }
 
     /**
-     * The WebResource to update the cloudsearch domain with
+     * The WebResource to update the cloudsearch domain with.
      *
-     * @param updateWebResource the WebResource to update the cloudsearch domain with
+     * @param updateWebResource the WebResource to update the cloudsearch domain with.
      */
     @Override
     public void setUpdateWebResource(final WebResource updateWebResource) {
@@ -59,9 +59,9 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
     }
 
     /**
-     * The WebResource to query the cloudsearch domain with
+     * The WebResource to query the cloudsearch domain with.
      *
-     * @param queryWebResource the WebResource to query the cloudsearch domain with
+     * @param queryWebResource the WebResource to query the cloudsearch domain with.
      */
     @Override
     public void setQueryWebResource(final WebResource queryWebResource) {
@@ -70,33 +70,33 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
 
     /**
      * A summarized version of a query that only returns the values that were found and not all the extra CloudSearch
-     * metadata
-     * 
-     * @param queryParams a MultivaluedMap of the query params to use
-     * @return a List of MultivaluedMaps that equate to all the entries that were found and their return fields
-     * @throws com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException if the response did not return a 2XX status code
+     * metadata.
+     *
+     * @param queryParams a MultivaluedMap of the query params to use.
+     * @return a List of MultivaluedMaps that equate to all the entries that were found and their return fields.
+     * @throws CloudSearchClientException if the response did not return in a 2XX status code.
      */
     public List<MultivaluedMap<String, String>> querySummary(MultivaluedMap<String, String> queryParams) throws CloudSearchClientException {
         return buildSummarizedResponse(query(queryParams));
     }
-        
+
     /**
-     * This method queries Amazon and return the results found
-     * 
-     * @param queryParams a MultivaluedMap of the query params to use
-     * @return a SearchResponse object which represents query results
-     * @throws CloudSearchClientException if the response did not return a 2XX status code
+     * This method queries Amazon and return the results found.
+     *
+     * @param queryParams a MultivaluedMap of the query params to use.
+     * @return a SearchResponse object which represents query results.
+     * @throws CloudSearchClientException if the response did not return a 2XX status code.
      */
     @Profiled(tag = "CloudSearchReadClient.query")
     public SearchResponse query(MultivaluedMap<String, String> queryParams) throws CloudSearchClientException {
         ClientResponse clientResponse = null;
-        SearchResponse searchResponse = null; 
-        
+        SearchResponse searchResponse = null;
+
         /* Force request xml results from AWS cloudsearch for JAXB conversion */
         MultivaluedMap<String, String> myQueryParams = new MultivaluedMapImpl(queryParams);
         myQueryParams.remove(CloudSearchQueryParam.RESULTS_TYPE);
         myQueryParams.add(CloudSearchQueryParam.RESULTS_TYPE, "xml");
-        
+
         LOGGER.debug("Querying to {} with query params: {}", this.queryWebResource.getURI(), myQueryParams);
         try {
             /* Don't like doing this but apparently jersey has problems with return-fields being in multivalued map */
@@ -106,27 +106,27 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
                                                   .queryParams(myQueryParams)
                                                   .get(ClientResponse.class);
 
-            
-            LOGGER.debug("Received a status of {} for query to {}", clientResponse.getStatus(), this.queryWebResource.getURI());            
+
+            LOGGER.debug("Received a status of {} for query to {}", clientResponse.getStatus(), this.queryWebResource.getURI());
             checkStatus(clientResponse);
 
             searchResponse = clientResponse.getEntity(SearchResponse.class);
-        } catch(RuntimeException re) {
+        } catch (RuntimeException re) {
             throw new CloudSearchRuntimeException(re.getMessage(), re);
         } finally {
             if (clientResponse != null) {
                 clientResponse.close();
             }
         }
-        
+
         return searchResponse;
     }
 
     /**
-     * Utility method to return summarized response
-     * 
-     * @param searchResponse The search response from Amazon Cloud Search
-     * @return List of MultivaluedMap<String, String> representing the summarized response
+     * Utility method to return summarized response.
+     *
+     * @param searchResponse The search response from Amazon CloudSearch.
+     * @return List of MultivaluedMap<String, String> representing the summarized response.
      */
     public static List<MultivaluedMap<String, String>> buildSummarizedResponse(SearchResponse searchResponse) {
         List<MultivaluedMap<String, String>> ret = new ArrayList<MultivaluedMap<String, String>>();
@@ -142,8 +142,8 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
     /**
      * Stupid patch because the return-fields are not being passed to the jersey WebResource properly. Most likely my fault.
      *
-     * @param queryParams the query params that need return-fields patched
-     * @return the patched query params
+     * @param queryParams the query params that need return-fields patched.
+     * @return the patched query params.
      */
     protected MultivaluedMap<String, String> patchReturnFields(MultivaluedMap<String, String> queryParams) {
         // This method is only protected for testing purposes
