@@ -58,6 +58,7 @@ public class CloudSearchWebResourceBuilder {
         return this;
     }
 
+
     public CloudSearchWebResourceBuilder useHttps(boolean secure) {
         this.secure = secure;
         return this;
