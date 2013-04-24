@@ -1,5 +1,5 @@
 /* Copyright (c) 2010 HomeAway, Inc.
- * All rights reserved.  http://jmonette/github.io/thunderhead
+ * All rights reserved.  http://homeaway.github.io/thunderhead
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
