@@ -41,7 +41,7 @@ import static org.mockito.Mockito.when;
  * @author jmonette
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CloudSearchExceptionsTest {
+public class CloudSearchClientExceptionsTest {
     
     private CloudSearchReadWriteClient cloudSearchReadWriteClient = new CloudSearchReadWriteClient();
     @Mock private ClientResponse clientResponse;

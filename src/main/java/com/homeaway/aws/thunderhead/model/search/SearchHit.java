@@ -17,7 +17,6 @@
 package com.homeaway.aws.thunderhead.model.search;
 
 import com.google.common.base.Objects;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 import javax.ws.rs.core.MultivaluedMap;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -65,17 +64,6 @@ public class SearchHit {
 
     public void setReturnFieldsList(final List<ReturnFields> returnFieldsList) {
         this.returnFieldsList = returnFieldsList;
-    }
-
-    public MultivaluedMap<String, String> getReturnFieldsMap() {
-        if(this.returnFieldsMap == null || this.returnFieldsList.size() != this.returnFieldsMap.size()) {
-            this.returnFieldsMap = new MultivaluedMapImpl();
-            for (ReturnFields searchResult : this.returnFieldsList) {
-                this.returnFieldsMap.add(searchResult.getName(), searchResult.getValue());
-            }
-        }
-
-        return this.returnFieldsMap;
     }
 
     /**
