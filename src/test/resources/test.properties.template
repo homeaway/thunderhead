@@ -1,0 +1,6 @@
+# This is a template file that provided for the properties needed to execute the integration tests.
+# To run the integration tests please copy this file to src/test/resources/test.properties and and
+# fill in the appropriate values.
+
+thunderhead.query.host=
+thunderhead.update.host=

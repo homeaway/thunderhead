@@ -20,8 +20,6 @@ import com.homeaway.aws.thunderhead.model.enums.CloudSearchPath;
 import com.homeaway.aws.thunderhead.model.enums.CloudSearchQueryParam;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchRuntimeException;
-import com.homeaway.aws.thunderhead.model.search.SearchHit;
-import com.homeaway.aws.thunderhead.model.search.SearchHits;
 import com.homeaway.aws.thunderhead.model.search.SearchResponse;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -29,8 +27,6 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.perf4j.aop.Profiled;
 
 import javax.ws.rs.core.MultivaluedMap;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is a client for querying the cloudsearch domain
@@ -65,18 +61,6 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
     @Override
     public void setQueryWebResource(final WebResource queryWebResource) {
         this.queryWebResource = queryWebResource;
-    }
-
-    /**
-     * A summarized version of a query that only returns the values that were found and not all the extra CloudSearch
-     * metadata
-     * 
-     * @param queryParams a MultivaluedMap of the query params to use
-     * @return a List of MultivaluedMaps that equate to all the entries that were found and their return fields
-     * @throws com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException if the response did not return a 2XX status code
-     */
-    public List<MultivaluedMap<String, String>> querySummary(MultivaluedMap<String, String> queryParams) throws CloudSearchClientException {
-        return buildSummarizedResponse(query(queryParams));
     }
         
     /**
@@ -118,22 +102,5 @@ public class CloudSearchReadClient extends AbstractCloudSearchClient {
         }
         
         return searchResponse;
-    }
-
-    /**
-     * Utility method to return summarized response
-     * 
-     * @param searchResponse The search response from Amazon Cloud Search
-     * @return List of MultivaluedMap<String, String> representing the summarized response
-     */
-    public static List<MultivaluedMap<String, String>> buildSummarizedResponse(SearchResponse searchResponse) {
-        List<MultivaluedMap<String, String>> ret = new ArrayList<MultivaluedMap<String, String>>();
-        if (searchResponse != null && searchResponse.getFound() != null && searchResponse.getFound().getHits() != null) {
-            SearchHits searchHits = searchResponse.getFound();
-            for (SearchHit searchHit : searchHits.getHits()) {
-                ret.add(searchHit.getReturnFieldsMap());
-            }
-        }
-        return ret;
     }
 }
