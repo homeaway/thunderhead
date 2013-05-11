@@ -16,17 +16,13 @@
 
 package com.homeaway.aws.thunderhead.it;
 
-import com.google.common.collect.Lists;
-import com.homeaway.aws.thunderhead.client.CloudSearchReadWriteClient;
-import com.homeaway.aws.thunderhead.client.builder.CloudSearchWebResourceBuilder;
+import com.homeaway.aws.thunderhead.client.CloudSearchClient;
+import com.homeaway.aws.thunderhead.client.builder.CloudSearchClientBuilder;
 import com.homeaway.aws.thunderhead.model.enums.CloudSearchQueryParam;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException;
-import com.homeaway.aws.thunderhead.model.sdf.Field;
-import com.homeaway.aws.thunderhead.model.sdf.SearchDocumentAdd;
 import com.homeaway.aws.thunderhead.model.sdf.SearchDocumentFormat;
 import com.homeaway.aws.thunderhead.model.search.SearchResponse;
 import com.homeaway.aws.thunderhead.model.upload.UploadResponse;
-import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,8 +30,6 @@ import org.junit.Test;
 import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -45,9 +39,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * @author jmonette
  */
-public class CloudSearchReadWriteClientIT extends BaseIT{
+public class CloudSearchClientIT extends BaseIT {
 
-    private CloudSearchReadWriteClient cloudSearchClient;
+    private CloudSearchClient cloudSearchClient;
 
     /**
      * This method sets up the cloudSearchClient to be used for testing
@@ -55,17 +49,10 @@ public class CloudSearchReadWriteClientIT extends BaseIT{
     @Before
     public void setup() throws URISyntaxException, IOException {
 
-        WebResource updateWebResource = CloudSearchWebResourceBuilder.newInstance()
-                                                                     .host(getUpdateHost())
-                                                                     .build();
-
-        WebResource queryWebResource = CloudSearchWebResourceBuilder.newInstance()
-                                                                     .host(getQueryHost())
-                                                                     .build();
-
-        cloudSearchClient = new CloudSearchReadWriteClient();
-        cloudSearchClient.setUpdateWebResource(updateWebResource);
-        cloudSearchClient.setQueryWebResource(queryWebResource);
+        cloudSearchClient = CloudSearchClientBuilder.newInstance()
+                                                    .queryHost(getQueryHost())
+                                                    .updateHost(getUpdateHost())
+                                                    .build();
     }
 
     /**
@@ -73,21 +60,7 @@ public class CloudSearchReadWriteClientIT extends BaseIT{
      */
     @Test
     public void basicUploadTest() throws CloudSearchClientException {
-        SearchDocumentFormat SDF = new SearchDocumentFormat();
-        SearchDocumentAdd searchDocumentAdd = new SearchDocumentAdd();
-        searchDocumentAdd.setId(getId());
-        searchDocumentAdd.setVersion("1");
-        searchDocumentAdd.setLang(Locale.ENGLISH.getLanguage());
-
-        Field exampleField = new Field();
-        exampleField.setName(EXAMPLE_FIELD);
-        exampleField.setValue(getUuid());
-
-        List<Field> fields = Lists.newArrayList();
-        fields.add(exampleField);
-
-        searchDocumentAdd.setFields(fields);
-        SDF.setSearchDocumentAdds(Lists.newArrayList(searchDocumentAdd));
+        SearchDocumentFormat SDF = buildSearchDocumentFormat();
         UploadResponse uploadResponse = this.cloudSearchClient.updateDomain(SDF);
 
         assertThat(uploadResponse.getAdds(), is(1));
