@@ -16,10 +16,16 @@
 
 package com.homeaway.aws.thunderhead.it;
 
+import com.google.common.collect.Lists;
+import com.homeaway.aws.thunderhead.model.sdf.Field;
+import com.homeaway.aws.thunderhead.model.sdf.SearchDocumentAdd;
+import com.homeaway.aws.thunderhead.model.sdf.SearchDocumentFormat;
 import org.junit.Before;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -71,5 +77,25 @@ public abstract class BaseIT {
 
     public String getId() {
         return this.id;
+    }
+
+    public SearchDocumentFormat buildSearchDocumentFormat() {
+        SearchDocumentFormat SDF = new SearchDocumentFormat();
+        SearchDocumentAdd searchDocumentAdd = new SearchDocumentAdd();
+        searchDocumentAdd.setId(getId());
+        searchDocumentAdd.setVersion("1");
+        searchDocumentAdd.setLang(Locale.ENGLISH.getLanguage());
+
+        Field exampleField = new Field();
+        exampleField.setName(EXAMPLE_FIELD);
+        exampleField.setValue(getUuid());
+
+        List<Field> fields = Lists.newArrayList();
+        fields.add(exampleField);
+
+        searchDocumentAdd.setFields(fields);
+        SDF.setSearchDocumentAdds(Lists.newArrayList(searchDocumentAdd));
+
+        return SDF;
     }
 }
