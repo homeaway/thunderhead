@@ -26,11 +26,9 @@ import com.homeaway.aws.thunderhead.model.search.SearchResponse;
 import com.homeaway.aws.thunderhead.model.upload.UploadResponse;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.perf4j.aop.Profiled;
 
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import java.util.Map;
 
 /**

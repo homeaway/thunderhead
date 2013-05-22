@@ -20,16 +20,13 @@ import com.homeaway.aws.thunderhead.client.CloudSearchClient;
 import com.homeaway.aws.thunderhead.client.builder.CloudSearchClientBuilder;
 import com.homeaway.aws.thunderhead.model.builder.CloudSearchQuery;
 import com.homeaway.aws.thunderhead.model.builder.CloudSearchRequest;
-import com.homeaway.aws.thunderhead.model.enums.CloudSearchQueryParam;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException;
 import com.homeaway.aws.thunderhead.model.sdf.SearchDocumentFormat;
 import com.homeaway.aws.thunderhead.model.search.SearchResponse;
 import com.homeaway.aws.thunderhead.model.upload.UploadResponse;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
