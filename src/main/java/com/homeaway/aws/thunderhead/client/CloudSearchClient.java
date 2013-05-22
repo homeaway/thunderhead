@@ -16,6 +16,7 @@
 
 package com.homeaway.aws.thunderhead.client;
 
+import com.homeaway.aws.thunderhead.model.builder.CloudSearchRequest;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException;
 import com.homeaway.aws.thunderhead.model.sdf.SearchDocumentFormat;
 import com.homeaway.aws.thunderhead.model.search.SearchResponse;
@@ -40,5 +41,5 @@ public interface CloudSearchClient {
     UploadResponse updateDomain(SearchDocumentFormat entity) throws CloudSearchClientException;
 
     @Profiled(tag = "CloudSearchReadClient.query")
-    SearchResponse query(MultivaluedMap<String, String> queryParams) throws CloudSearchClientException;
+    SearchResponse query(CloudSearchRequest cloudSearchRequest) throws CloudSearchClientException;
 }

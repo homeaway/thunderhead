@@ -16,6 +16,7 @@
 
 package com.homeaway.aws.thunderhead.model.builder;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.homeaway.aws.thunderhead.model.enums.CloudSearchQueryParam;
@@ -37,18 +38,12 @@ public final class CloudSearchRequest {
     protected static final Logger logger = LoggerFactory.getLogger(CloudSearchRequest.class);
 
     private CloudSearchQuery booleanQuery;
-    private List<String> facetFields = Lists.newLinkedList();
-    private MultivaluedMap<String, String> facetConstraints = new MultivaluedMapImpl();
-    private Map<String, String> facetSorts = Maps.newHashMap();
-    private Map<String, Integer> facetTopNs = Maps.newHashMap();
     private String query;
     private String rank;
     private Map<String, String> rankExpressions = Maps.newHashMap();
-    private String resultsType;
     private List<String> returnFields = Lists.newLinkedList();
     private Integer size;
     private Integer start;
-    private Map<String, String> tRanges = Maps.newHashMap();
 
     private CloudSearchRequest() { }
 
@@ -61,27 +56,6 @@ public final class CloudSearchRequest {
             logger.warn("Setting bq when q is already set!");
         }
         this.booleanQuery = query;
-        return this;
-    }
-
-    public CloudSearchRequest facet(final String facet){
-        this.facetFields.add(facet);
-        return this;
-    }
-
-    public CloudSearchRequest facetConstraints(final String field, final String constraint){
-        this.facetConstraints.putSingle(field, constraint);
-        return this;
-    }
-
-    //TODO sort is a string for now.  We could handle this with an enum of sort types but how do we cleanly handle a case with the hyphen syntax to reverse a sort?  e.g. -max(fieldname)
-    public CloudSearchRequest facetSort(final String field, final String sort) {
-        this.facetSorts.put(field, sort);
-        return this;
-    }
-
-    public CloudSearchRequest facetTopN(final String field, final int n) {
-        facetTopNs.put(field, n);
         return this;
     }
 
@@ -103,11 +77,6 @@ public final class CloudSearchRequest {
         return this;
     }
 
-    public CloudSearchRequest resultsType(final String resultsType) {
-        this.resultsType = resultsType;
-        return this;
-    }
-
     public CloudSearchRequest returnField(String returnField) {
         this.returnFields.add(returnField);
         return this;
@@ -123,70 +92,52 @@ public final class CloudSearchRequest {
         return this;
     }
 
-    //TODO what should this be named?  I can't figure out what the 't' is supposed to stand for from the documentation...
-    //TODO range is a string for now; we might eventually want an actual Range object or take ints and handle the formatting internally
-    public CloudSearchRequest tRange(final String field, final String range) {
-        this.tRanges.put(field, range);
-        return this;
-    }
-
     public Map<String, String> buildQueryParams() {
         Map<String, String> queryParams = Maps.newHashMap();
-
-        //todo do we want to validate that either q or bq is set?  One or the other is required, per the amazon docs.
-        //if (booleanQuery == null && query == null){/*error?*/}
 
         if (booleanQuery != null) {
             queryParams.put(CloudSearchQueryParam.BQ.getName(), booleanQuery.getQueryString());
         }
-        if (!facetFields.isEmpty()) {
-            queryParams.put(CloudSearchQueryParam.FACET.getName(), StringUtils.join(facetFields, ','));
-        }
-        if (!facetConstraints.isEmpty()) {
-            for(Map.Entry<String, List<String>> entry : facetConstraints.entrySet()) {
-                //TODO should these custom param names be built in a nicer way?
-                queryParams.put("facet-" + entry.getKey() + "-constraints", StringUtils.join(entry.getValue(), ','));
-            }
-        }
-        if (!facetSorts.isEmpty()) {
-            for(Map.Entry<String, String> entry : facetSorts.entrySet()) {
-                queryParams.put("facet-" + entry.getKey() + "-sort", entry.getValue());
-            }
-        }
-        if (!facetTopNs.isEmpty()) {
-            for(Map.Entry<String, Integer> entry : facetTopNs.entrySet()) {
-                queryParams.put("facet-" + entry.getKey() + "-top-n", entry.getValue().toString());
-            }
-        }
+
         if (query != null) {
             queryParams.put(CloudSearchQueryParam.Q.getName(), query);
         }
+
         if (rank != null) {
             queryParams.put(CloudSearchQueryParam.RANK.getName(), rank);
         }
+
         if (!rankExpressions.isEmpty()) {
             for(Map.Entry<String, String> entry : rankExpressions.entrySet()) {
                 queryParams.put("rank-" + entry.getKey(), entry.getValue());
             }
         }
-        if (resultsType != null) {
-            queryParams.put(CloudSearchQueryParam.RESULTS_TYPE.getName(), resultsType);
-        }
+
         if (!returnFields.isEmpty()) {
             queryParams.put(CloudSearchQueryParam.RETURN_FIELDS.getName(), StringUtils.join(returnFields, ','));
         }
+
         if (size != null) {
             queryParams.put(CloudSearchQueryParam.SIZE.getName(), size.toString());
         }
+
         if (start != null) {
             queryParams.put(CloudSearchQueryParam.START.getName(), start.toString());
         }
-        if (!tRanges.isEmpty()) {
-            for(Map.Entry<String, String> entry : tRanges.entrySet()) {
-                queryParams.put(entry.getKey(), entry.getValue());
-            }
-        }
 
         return queryParams;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .add("bq", booleanQuery)
+                .add("q",query)
+                .add("rank", rank)
+                .add("rank-expressions", rankExpressions)
+                .add("return-fields", returnFields)
+                .add("size", size)
+                .add("start", start)
+                .toString();
     }
 }

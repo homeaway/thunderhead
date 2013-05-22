@@ -17,6 +17,7 @@
 package com.homeaway.aws.thunderhead.client.impl;
 
 import com.homeaway.aws.thunderhead.client.CloudSearchClient;
+import com.homeaway.aws.thunderhead.model.builder.CloudSearchRequest;
 import com.homeaway.aws.thunderhead.model.enums.CloudSearchQueryParam;
 import com.homeaway.aws.thunderhead.model.enums.CloudSearchStatusCode;
 import com.homeaway.aws.thunderhead.model.exceptions.*;
@@ -30,6 +31,7 @@ import org.perf4j.aop.Profiled;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import java.util.Map;
 
 /**
  * @author jmonette
@@ -55,13 +57,13 @@ public class CloudSearchClientImpl implements CloudSearchClient {
     /**
      * This method queries Amazon and returns the results found
      *
-     * @param queryParams a MultivaluedMap of the query params to use
+     * @param cloudSearchRequest a CloudSearchRequest object representing the search request to cloudsearch.
      * @return a SearchResponse object which represents query results
      * @throws CloudSearchClientException if the response did not return a 2XX status code
      */
     @Override
     @Profiled(tag = "CloudSearchReadClient.query")
-    public SearchResponse query(MultivaluedMap<String, String> queryParams) throws CloudSearchClientException {
+    public SearchResponse query(CloudSearchRequest cloudSearchRequest) throws CloudSearchClientException {
         if (this.queryWebResource == null) {
             throw new IllegalStateException("CloudSearchClient not configured for querying cloudsearch");
         }
@@ -70,18 +72,18 @@ public class CloudSearchClientImpl implements CloudSearchClient {
         SearchResponse searchResponse = null;
 
         /* Force request xml results from AWS cloudsearch */
-        MultivaluedMap<String, String> myQueryParams = new MultivaluedMapImpl(queryParams);
-        myQueryParams.remove(CloudSearchQueryParam.RESULTS_TYPE.getName());
-        myQueryParams.add(CloudSearchQueryParam.RESULTS_TYPE.getName(), "xml");
+        WebResource webResource = this.queryWebResource.path(CLOUDSEARCH_VERSION)
+                                                       .path("search")
+                                                       .queryParam(CloudSearchQueryParam.RESULTS_TYPE.getName(), "xml");
 
-        LOGGER.debug("Querying to {} with query params: {}", this.queryWebResource.getURI(), myQueryParams);
+        for (Map.Entry<String, String> entry : cloudSearchRequest.buildQueryParams().entrySet()) {
+            webResource = webResource.queryParam(entry.getKey(), entry.getValue());
+        }
+
+        LOGGER.debug("Querying to {} with query params: {}", this.queryWebResource.getURI(), cloudSearchRequest);
         try {
 
-            clientResponse = this.queryWebResource.path(CLOUDSEARCH_VERSION)
-                                                  .path("search")
-                                                  .queryParams(myQueryParams)
-                                                  .get(ClientResponse.class);
-
+            clientResponse = webResource.get(ClientResponse.class);
 
             LOGGER.debug("Received a status of {} for query to {}", clientResponse.getStatus(), this.queryWebResource.getURI());
             checkStatus(clientResponse);
@@ -124,7 +126,7 @@ public class CloudSearchClientImpl implements CloudSearchClient {
                                                    .entity(entity, MediaType.APPLICATION_XML)
                                                    .post(ClientResponse.class);
 
-            LOGGER.debug("Received a status of {} for query to {}", clientResponse.getStatus(), this.updateWebResource.getURI());
+            LOGGER.debug("Received a status of {} for POST to {}", clientResponse.getStatus(), this.updateWebResource.getURI());
 
             checkStatus(clientResponse);
 

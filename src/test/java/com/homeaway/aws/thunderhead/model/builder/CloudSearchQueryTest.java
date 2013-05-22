@@ -24,6 +24,9 @@ import static com.homeaway.aws.thunderhead.model.builder.CloudSearchQuery.or;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+/**
+ *
+ */
 public class CloudSearchQueryTest {
 
     @Test

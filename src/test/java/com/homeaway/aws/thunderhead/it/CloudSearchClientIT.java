@@ -18,6 +18,8 @@ package com.homeaway.aws.thunderhead.it;
 
 import com.homeaway.aws.thunderhead.client.CloudSearchClient;
 import com.homeaway.aws.thunderhead.client.builder.CloudSearchClientBuilder;
+import com.homeaway.aws.thunderhead.model.builder.CloudSearchQuery;
+import com.homeaway.aws.thunderhead.model.builder.CloudSearchRequest;
 import com.homeaway.aws.thunderhead.model.enums.CloudSearchQueryParam;
 import com.homeaway.aws.thunderhead.model.exceptions.CloudSearchClientException;
 import com.homeaway.aws.thunderhead.model.sdf.SearchDocumentFormat;
@@ -75,16 +77,18 @@ public class CloudSearchClientIT extends BaseIT {
     @Test
     public void basicQueryTest() throws CloudSearchClientException, InterruptedException {
         // Upload a doc to the search index to test
-        basicUploadTest();
+        SearchDocumentFormat SDF = buildSearchDocumentFormat();
+        this.cloudSearchClient.updateDomain(SDF);
 
         // Sleep for 10 seconds to allow for cloudsearch to index
         Thread.sleep(10000);
 
-        MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
-        queryParams.add(CloudSearchQueryParam.BQ.getName(), EXAMPLE_FIELD + ":'" + getUuid() + "'");
-        queryParams.add(CloudSearchQueryParam.RETURN_FIELDS.getName(), EXAMPLE_FIELD);
+        CloudSearchQuery cloudSearchQuery = CloudSearchQuery.match(EXAMPLE_FIELD, getUuid());
+        CloudSearchRequest cloudSearchRequest = CloudSearchRequest.newInstance()
+                                                                  .bq(cloudSearchQuery)
+                                                                  .returnField(EXAMPLE_FIELD);
 
-        SearchResponse searchResponse = this.cloudSearchClient.query(queryParams);
+        SearchResponse searchResponse = this.cloudSearchClient.query(cloudSearchRequest);
 
         assertThat(searchResponse, is(notNullValue()));
         assertThat(searchResponse.getFound(), is(notNullValue()));
